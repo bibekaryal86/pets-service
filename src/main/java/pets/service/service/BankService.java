@@ -87,6 +87,10 @@ public class BankService {
     private RefBankResponse response(String errMsg, Exception ex) {
         if (ex instanceof HttpStatusCodeException) {
             try {
+                if (((HttpStatusCodeException) ex).getStatusCode().is4xxClientError()) {
+                    return responseException(errMsg, ex);
+                }
+
                 return objectMapper().readValue(((HttpStatusCodeException) ex).getResponseBodyAsString(),
                         RefBankResponse.class);
             } catch (Exception ex1) {

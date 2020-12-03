@@ -87,6 +87,10 @@ public class AccountTypeService {
     private RefAccountTypeResponse response(String errMsg, Exception ex) {
         if (ex instanceof HttpStatusCodeException) {
             try {
+                if (((HttpStatusCodeException) ex).getStatusCode().is4xxClientError()) {
+                    return responseException(errMsg, ex);
+                }
+
                 return objectMapper().readValue(((HttpStatusCodeException) ex).getResponseBodyAsString(),
                         RefAccountTypeResponse.class);
             } catch (Exception ex1) {

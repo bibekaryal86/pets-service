@@ -140,6 +140,10 @@ public class CategoryService {
     private RefCategoryResponse response(String errMsg, Exception ex) {
         if (ex instanceof HttpStatusCodeException) {
             try {
+                if (((HttpStatusCodeException) ex).getStatusCode().is4xxClientError()) {
+                    return responseException(errMsg, ex);
+                }
+
                 return objectMapper().readValue(((HttpStatusCodeException) ex).getResponseBodyAsString(),
                         RefCategoryResponse.class);
             } catch (Exception ex1) {

@@ -172,6 +172,10 @@ public class AccountService {
     private AccountResponse response(String errMsg, Exception ex) {
         if (ex instanceof HttpStatusCodeException) {
             try {
+                if (((HttpStatusCodeException) ex).getStatusCode().is4xxClientError()) {
+                    return responseException(errMsg, ex);
+                }
+
                 return objectMapper().readValue(((HttpStatusCodeException) ex).getResponseBodyAsString(),
                         AccountResponse.class);
             } catch (Exception ex1) {

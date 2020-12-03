@@ -48,4 +48,7 @@ public class Constants {
 
     public static final List<String> CATEGORY_ID_LOAN_PAYMENTS = asList(CATEGORY_ID_AUTO_PAYMENT,
             CATEGORY_ID_MORTGAGE_PAYMENT, CATEGORY_ID_OTHER_LOAN_PAYMENT);
+
+    public static final String BASIC_AUTH_USR_PETSDATABASE = "BASIC_AUTH_USR_PETSDATABASE";
+    public static final String BASIC_AUTH_PWD_PETSDATABASE = "BASIC_AUTH_PWD_PETSDATABASE";
 }
