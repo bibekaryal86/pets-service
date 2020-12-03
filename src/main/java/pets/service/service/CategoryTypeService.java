@@ -97,6 +97,10 @@ public class CategoryTypeService {
     private RefCategoryTypeResponse response(String errMsg, Exception ex) {
         if (ex instanceof HttpStatusCodeException) {
             try {
+                if (((HttpStatusCodeException) ex).getStatusCode().is4xxClientError()) {
+                    return responseException(errMsg, ex);
+                }
+
                 return objectMapper().readValue(((HttpStatusCodeException) ex).getResponseBodyAsString(),
                         RefCategoryTypeResponse.class);
             } catch (Exception ex1) {
