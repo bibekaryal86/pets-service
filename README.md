@@ -21,3 +21,8 @@ use gcloud SDK commands: (1) gcloud init (2) gcloud app deploy app.yaml.
 
 The GCP specific configurations are based on active spring profile of production
 mainly in application-production.yml and logback.yml
+
+Three apps from the following repos need to be running together:
+* https://github.com/bibekaryal86/pets-database
+* https://github.com/bibekaryal86/pets-service (this)
+* https://github.com/bibekaryal86/pets-ui-mpa
