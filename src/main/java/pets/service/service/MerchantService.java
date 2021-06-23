@@ -57,14 +57,13 @@ public class MerchantService {
             setSystemDependentMerchants(refMerchantResponse);
             refMerchantResponse.setRefMerchantsFilterList(getRefMerchantsFilterListByName(refMerchantResponse));
 
-            if (refMerchantFilters != null) {
-                TransactionResponse transactionResponse = null;
-                if (refMerchantFilters.isNotUsedInTransactionsOnly()) {
-                    transactionResponse = transactionService.getTransactionsByUser(username, null, false);
-                }
+            TransactionResponse transactionResponse = transactionService.getTransactionsByUser(username, null, false);
+            refMerchantResponse.setRefMerchantsNotUsedInTransactions(getRefMerchantsNotUsedInTransactions(refMerchantResponse.getRefMerchants(),
+                    transactionResponse.getTransactions()));
 
+            if (refMerchantFilters != null) {
                 refMerchantResponse = applyFilters(refMerchantResponse, refMerchantFilters,
-                        transactionResponse == null ? null : transactionResponse.getTransactions());
+                        transactionResponse.getTransactions());
             }
         }
 
