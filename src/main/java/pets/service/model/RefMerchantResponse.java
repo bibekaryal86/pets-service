@@ -21,5 +21,6 @@ public class RefMerchantResponse implements Serializable {
     private List<RefMerchant> refMerchants;
     private Long deleteCount;
     private Set<String> refMerchantsFilterList;
+    private List<RefMerchant> refMerchantsNotUsedInTransactions;
     private Status status;
 }

@@ -67,6 +67,12 @@ public class MerchantHelper {
                 });
     }
 
+    public static List<RefMerchant> getRefMerchantsNotUsedInTransactions(List<RefMerchant> merchantList,
+                                                                         List<Transaction> transactions) {
+        return applyMerchantNotUsedInTransactionFilter(merchantList, transactions);
+    }
+
+
     private static List<RefMerchant> applyMerchantNameBeginsWithFilter(List<RefMerchant> merchantList, char firstChar) {
         if (isAlphabetic(firstChar)) {
             return merchantList.stream()
