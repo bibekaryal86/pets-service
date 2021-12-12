@@ -1,0 +1,73 @@
+#spring actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, caches, env, metrics, clear-caches
+
+#Service URLs
+base_url:
+  data_layer:
+    development: http://localhost:8002
+    production: https://pets-database.appspot.com
+    docker: http://pets-database:8002
+
+#Services (alphabetical)
+service_bases:
+  pets-database: ${base_url.data_layer.${spring.profiles.active}}/pets-database
+
+#Endpoint Section
+endpoints:
+  account: ${service_bases.pets-database}/accounts/account
+  account_type: ${service_bases.pets-database}/refaccounttypes/refaccounttype
+  bank: ${service_bases.pets-database}/refbanks/refbank
+  category: ${service_bases.pets-database}/refcategories/refcategory
+  category_type: ${service_bases.pets-database}/refcategorytypes/refcategorytype
+  merchant: ${service_bases.pets-database}/refmerchants/refmerchant
+  transaction: ${service_bases.pets-database}/transactions/transaction
+  transaction_type: ${service_bases.pets-database}/reftransactiontypes/reftransactiontype
+  user: ${service_bases.pets-database}/users/user
+
+#URLs
+account_get_by_id: ${endpoints.account}/id/{id}
+accounts_get_by_user: ${endpoints.account}/user/{username}
+account_save_new: ${endpoints.account}
+account_update_put: ${endpoints.account}/id/{id}
+account_delete: ${endpoints.account}/id/{id}
+account_types_get_all: ${endpoints.account_type}
+account_type_save_new: ${endpoints.account_type}
+account_type_update: ${endpoints.account_type}/id/{id}
+account_type_delete: ${endpoints.account_type}/id/{id}
+categories_get_all: ${endpoints.category}
+category_save_new: ${endpoints.category}
+category_update: ${endpoints.category}/id/{id}
+category_delete: ${endpoints.category}/id/{id}
+category_types_get_all: ${endpoints.category_type}
+category_type_save_new: ${endpoints.category_type}
+category_type_update: ${endpoints.category_type}/id/{id}
+category_type_delete: ${endpoints.category_type}/id/{id}
+banks_get_all: ${endpoints.bank}
+bank_save_new: ${endpoints.bank}
+bank_update: ${endpoints.bank}/id/{id}
+bank_delete: ${endpoints.bank}/id/{id}
+merchant_get_by_id: ${endpoints.merchant}/id/{id}
+merchants_get_by_user: ${endpoints.merchant}/user/{username}
+merchant_save_new: ${endpoints.merchant}
+merchant_update: ${endpoints.merchant}/id/{id}
+merchant_delete: ${endpoints.merchant}/id/{id}
+transaction_get_by_id: ${endpoints.transaction}/id/{id}
+transactions_get_by_user: ${endpoints.transaction}/user/{username}
+transaction_save_new: ${endpoints.transaction}
+transaction_update_put: ${endpoints.transaction}/id/{id}
+transaction_delete: ${endpoints.transaction}/id/{id}
+transactions_delete_by_account: ${endpoints.transaction}/accountid/{accountid}
+transaction_types_get_all: ${endpoints.transaction_type}
+transaction_type_save_new: ${endpoints.transaction_type}
+transaction_type_update: ${endpoints.transaction_type}/id/{id}
+transaction_type_delete: ${endpoints.transaction_type}/id/{id}
+user_get_by_username: ${endpoints.user}/username/{username}
+user_get_by_email: ${endpoints.user}/email
+user_get_by_phone: ${endpoints.user}/phone
+user_save_new: ${endpoints.user}
+user_update_put: ${endpoints.user}/id/{id}
+user_update_patch: ${endpoints.user}/id/{id}
