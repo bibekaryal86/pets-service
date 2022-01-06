@@ -8,5 +8,5 @@
  * This project uses @Incubating APIs which are subject to change.
  */
 
-rootProject.name = 'pets-service-layer'
+rootProject.name = 'pets-service'
 include('app')
