@@ -7,10 +7,11 @@ import pets.service.utils.ControllerLoggingInterceptor;
 
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
-    private final ControllerLoggingInterceptor controllerLoggingInterceptor = new ControllerLoggingInterceptor();
+  private final ControllerLoggingInterceptor controllerLoggingInterceptor =
+      new ControllerLoggingInterceptor();
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(this.controllerLoggingInterceptor);
-    }
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(this.controllerLoggingInterceptor);
+  }
 }
