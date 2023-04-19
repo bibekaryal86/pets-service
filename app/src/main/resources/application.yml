@@ -5,6 +5,11 @@ management:
       exposure:
         include: health, info, caches, env, metrics, clear-caches
 
+# openapi swagger-ui
+springdoc:
+  paths-to-exclude: /users/**, /transactions/**, /accounts/**
+  show-actuator: true
+
 #Service URLs
 base_url:
   data_layer:

@@ -5,6 +5,7 @@ import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.util.StringUtils.hasText;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,6 @@ import pets.service.model.RefBankRequest;
 import pets.service.model.RefBankResponse;
 import pets.service.model.Status;
 import pets.service.service.BankService;
-import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/banks/{username}")
@@ -49,7 +49,7 @@ public class BankController {
     }
   }
 
-  @ApiIgnore
+  @Hidden
   @PostMapping(value = "/bank", produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<RefBankResponse> saveNewBank(
       @PathVariable("username") String username, @RequestBody RefBankRequest bankRequest) {
@@ -62,7 +62,7 @@ public class BankController {
     }
   }
 
-  @ApiIgnore
+  @Hidden
   @PutMapping(value = "/bank", produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<RefBankResponse> updateBank(
       @PathVariable("username") String username,
@@ -77,7 +77,7 @@ public class BankController {
     }
   }
 
-  @ApiIgnore
+  @Hidden
   @DeleteMapping(value = "/bank", produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<RefBankResponse> deleteBank(
       @PathVariable("username") String username, @RequestParam("id") String id) {

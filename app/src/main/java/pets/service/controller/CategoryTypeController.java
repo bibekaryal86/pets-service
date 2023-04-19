@@ -5,6 +5,7 @@ import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.util.StringUtils.hasText;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,6 @@ import pets.service.model.RefCategoryTypeRequest;
 import pets.service.model.RefCategoryTypeResponse;
 import pets.service.model.Status;
 import pets.service.service.CategoryTypeService;
-import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/categorytypes/{username}")
@@ -52,7 +52,7 @@ public class CategoryTypeController {
     }
   }
 
-  @ApiIgnore
+  @Hidden
   @PostMapping(value = "/categorytype", produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<RefCategoryTypeResponse> saveNewCategoryType(
       @PathVariable("username") String username,
@@ -68,7 +68,7 @@ public class CategoryTypeController {
     }
   }
 
-  @ApiIgnore
+  @Hidden
   @PutMapping(value = "/categorytype", produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<RefCategoryTypeResponse> updateCategoryType(
       @PathVariable("username") String username,
@@ -83,7 +83,7 @@ public class CategoryTypeController {
     }
   }
 
-  @ApiIgnore
+  @Hidden
   @DeleteMapping(value = "/categorytype", produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<RefCategoryTypeResponse> deleteCategoryType(
       @PathVariable("username") String username, @RequestParam("id") String id) {

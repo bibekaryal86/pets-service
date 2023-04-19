@@ -5,6 +5,7 @@ import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.util.StringUtils.hasText;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,6 @@ import pets.service.model.RefAccountTypeRequest;
 import pets.service.model.RefAccountTypeResponse;
 import pets.service.model.Status;
 import pets.service.service.AccountTypeService;
-import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/accounttypes/{username}")
@@ -50,7 +50,7 @@ public class AccountTypeController {
     }
   }
 
-  @ApiIgnore
+  @Hidden
   @PostMapping(value = "/accounttype", produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<RefAccountTypeResponse> saveNewAccountType(
       @PathVariable("username") String username,
@@ -66,7 +66,7 @@ public class AccountTypeController {
     }
   }
 
-  @ApiIgnore
+  @Hidden
   @PutMapping(value = "/accounttype", produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<RefAccountTypeResponse> updateAccountType(
       @PathVariable("username") String username,
@@ -81,7 +81,7 @@ public class AccountTypeController {
     }
   }
 
-  @ApiIgnore
+  @Hidden
   @DeleteMapping(value = "/accounttype", produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<RefAccountTypeResponse> deleteAccountType(
       @PathVariable("username") String username, @RequestParam("id") String id) {

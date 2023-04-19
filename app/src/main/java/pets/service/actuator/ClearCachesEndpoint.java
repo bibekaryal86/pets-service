@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
@@ -18,7 +17,11 @@ public class ClearCachesEndpoint {
 
   private static final Logger logger = LoggerFactory.getLogger(ClearCachesEndpoint.class);
 
-  @Autowired private CacheManager cacheManager;
+  private final CacheManager cacheManager;
+
+  public ClearCachesEndpoint(CacheManager cacheManager) {
+    this.cacheManager = cacheManager;
+  }
 
   @ReadOperation
   public String clearCaches() {

@@ -10,7 +10,6 @@ import static pets.service.utils.TransactionHelper.applyFilters;
 import java.util.concurrent.CompletableFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import pets.service.connector.TransactionConnector;
@@ -21,27 +20,22 @@ public class TransactionService {
 
   private static final Logger logger = LoggerFactory.getLogger(TransactionService.class);
   private final TransactionConnector transactionConnector;
-  private AccountService accountService;
   private final CategoryService categoryService;
   private final MerchantService merchantService;
   private final TransactionTypeService transactionTypeService;
+  private final TransactionServiceHelperService transactionServiceHelperService;
 
   public TransactionService(
       TransactionConnector transactionConnector,
       CategoryService categoryService,
       MerchantService merchantService,
-      TransactionTypeService transactionTypeService) {
+      TransactionTypeService transactionTypeService,
+      TransactionServiceHelperService transactionServiceHelperService) {
     this.transactionConnector = transactionConnector;
     this.categoryService = categoryService;
     this.merchantService = merchantService;
     this.transactionTypeService = transactionTypeService;
-  }
-
-  // to avoid circular dependency
-  // maybe add a new service like TransactionHelperService to avoid it
-  @Autowired
-  public void setAccountService(AccountService accountService) {
-    this.accountService = accountService;
+    this.transactionServiceHelperService = transactionServiceHelperService;
   }
 
   public TransactionResponse getTransactionById(
@@ -192,18 +186,9 @@ public class TransactionService {
     }
   }
 
-  public TransactionResponse deleteTransactionsByAccount(String accountId) {
-    try {
-      return transactionConnector.deleteTransactionsByAccount(accountId);
-    } catch (Exception ex) {
-      logger.error("Exception in Delete Transactions by Account: {}", accountId);
-      return response("Delete Transaction by Account Unavailable! Please Try Again!!!", ex);
-    }
-  }
-
   private void applyAllDetails(String username, TransactionResponse transactionResponse) {
     CompletableFuture<AccountResponse> accountResponseCompletableFuture =
-        accountService.getAccountsByUserFuture(username);
+        transactionServiceHelperService.getAccountsByUserFuture(username);
     CompletableFuture<RefCategoryResponse> refCategoryResponseCompletableFuture =
         categoryService.getAllCategoriesFuture();
     CompletableFuture<RefMerchantResponse> refMerchantResponseCompletableFuture =

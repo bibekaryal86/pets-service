@@ -6,6 +6,7 @@ import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.util.StringUtils.hasText;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,6 @@ import pets.service.model.RefMerchantRequest;
 import pets.service.model.RefMerchantResponse;
 import pets.service.model.Status;
 import pets.service.service.MerchantService;
-import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/merchants/{username}")
@@ -53,7 +53,7 @@ public class MerchantController {
     }
   }
 
-  @ApiIgnore
+  @Hidden
   @PostMapping(value = "/merchant", produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<RefMerchantResponse> saveNewMerchant(
       @PathVariable("username") String username, @RequestBody RefMerchantRequest merchantRequest) {
@@ -68,7 +68,7 @@ public class MerchantController {
     }
   }
 
-  @ApiIgnore
+  @Hidden
   @PutMapping(value = "/merchant", produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<RefMerchantResponse> updateMerchant(
       @PathVariable("username") String username,
@@ -83,7 +83,7 @@ public class MerchantController {
     }
   }
 
-  @ApiIgnore
+  @Hidden
   @DeleteMapping(value = "/merchant", produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<RefMerchantResponse> deleteMerchant(
       @PathVariable("username") String username, @RequestParam("id") String id) {

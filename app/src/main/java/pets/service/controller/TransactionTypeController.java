@@ -5,6 +5,7 @@ import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.util.StringUtils.hasText;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,6 @@ import pets.service.model.RefTransactionTypeRequest;
 import pets.service.model.RefTransactionTypeResponse;
 import pets.service.model.Status;
 import pets.service.service.TransactionTypeService;
-import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/transactiontypes/{username}")
@@ -50,7 +50,7 @@ public class TransactionTypeController {
     }
   }
 
-  @ApiIgnore
+  @Hidden
   @PostMapping(value = "/transactiontype", produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<RefTransactionTypeResponse> saveNewTransactionType(
       @PathVariable("username") String username,
@@ -66,7 +66,7 @@ public class TransactionTypeController {
     }
   }
 
-  @ApiIgnore
+  @Hidden
   @PutMapping(value = "/transactiontype", produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<RefTransactionTypeResponse> updateTransactionType(
       @PathVariable("username") String username,
@@ -81,7 +81,7 @@ public class TransactionTypeController {
     }
   }
 
-  @ApiIgnore
+  @Hidden
   @DeleteMapping(value = "/transactiontype", produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<RefTransactionTypeResponse> deleteTransactionType(
       @PathVariable("username") String username, @RequestParam("id") String id) {
