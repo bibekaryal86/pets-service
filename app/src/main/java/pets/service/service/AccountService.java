@@ -8,7 +8,6 @@ import static pets.service.utils.ObjectMapperProvider.objectMapper;
 import java.util.concurrent.CompletableFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import pets.service.connector.AccountConnector;
@@ -21,22 +20,17 @@ public class AccountService {
   private final AccountConnector accountConnector;
   private final AccountTypeService accountTypeService;
   private final BankService bankService;
-  private TransactionService transactionService;
+  private final AccountServiceHelperService accountServiceHelperService;
 
   public AccountService(
       AccountConnector accountConnector,
       AccountTypeService accountTypeService,
-      BankService bankService) {
+      BankService bankService,
+      AccountServiceHelperService accountServiceHelperService) {
     this.accountConnector = accountConnector;
     this.accountTypeService = accountTypeService;
     this.bankService = bankService;
-  }
-
-  // to avoid circular dependency
-  // maybe add a new class like AccountHelperService to avoid it
-  @Autowired
-  public void setTransactionService(TransactionService transactionService) {
-    this.transactionService = transactionService;
+    this.accountServiceHelperService = accountServiceHelperService;
   }
 
   public AccountResponse getAccountById(String username, String id, boolean applyAllDetails) {
@@ -152,7 +146,7 @@ public class AccountService {
 
       if (accountResponse.getDeleteCount().intValue() > 0) {
         TransactionResponse transactionResponse =
-            transactionService.deleteTransactionsByAccount(id);
+            accountServiceHelperService.deleteTransactionsByAccount(id);
 
         if (transactionResponse.getStatus() != null) {
           accountResponse =
@@ -179,7 +173,7 @@ public class AccountService {
 
   private void calculateCurrentBalance(String username, AccountResponse accountResponse) {
     TransactionResponse transactionResponse =
-        transactionService.getTransactionsByUser(username, null, false);
+        accountServiceHelperService.getTransactionsByUser(username);
     calculateCurrentBalanceStatic(accountResponse, transactionResponse.getTransactions());
   }
 

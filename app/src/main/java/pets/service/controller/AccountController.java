@@ -5,16 +5,24 @@ import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.util.StringUtils.hasText;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import pets.service.model.AccountFilters;
 import pets.service.model.AccountRequest;
 import pets.service.model.AccountResponse;
 import pets.service.model.Status;
 import pets.service.service.AccountService;
-import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/accounts/{username}")
@@ -52,7 +60,7 @@ public class AccountController {
     }
   }
 
-  @ApiIgnore
+  @Hidden
   @PostMapping(value = "/account", produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<AccountResponse> saveNewAccount(
       @PathVariable("username") String username, @RequestBody AccountRequest accountRequest) {
@@ -71,7 +79,7 @@ public class AccountController {
     }
   }
 
-  @ApiIgnore
+  @Hidden
   @PutMapping(value = "/account", produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<AccountResponse> updateAccount(
       @PathVariable("username") String username,
@@ -86,7 +94,7 @@ public class AccountController {
     }
   }
 
-  @ApiIgnore
+  @Hidden
   @DeleteMapping(value = "/account", produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<AccountResponse> deleteAccount(
       @PathVariable("username") String username, @RequestParam("id") String id) {
