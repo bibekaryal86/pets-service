@@ -21,8 +21,6 @@ public class MerchantService {
   private static final Logger logger = LoggerFactory.getLogger(MerchantService.class);
   private final MerchantConnector merchantConnector;
   private final TransactionService transactionService;
-  // instead of Lazy implementation, maybe add a new MerchantHelperService class
-  // in order to avoid cyclical dependency
 
   public MerchantService(
       MerchantConnector merchantConnector, @Lazy TransactionService transactionService) {
